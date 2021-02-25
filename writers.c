@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:48:45 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/02/21 17:57:24 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:26:44 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		ft_putchar(int c)
 {
-	g_a++;
 	if (c == '\0')
 		return (write(1, &c, 1));
 	return (write(1, &c, 1));

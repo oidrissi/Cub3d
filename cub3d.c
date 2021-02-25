@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:28:59 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/02/21 19:10:50 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/02/25 09:34:55 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,22 @@ void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void		cube_put(int i, int j, t_data img)
+int			clean_close(t_vars *vars)
 {
-	while (i-- > 0)
-	{
-		j++;
-		my_mlx_pixel_put(&img, 150 + j, 150, 0x00FF0000);
-		my_mlx_pixel_put(&img, 150, 150 + j, 0x00FF0000);
-		my_mlx_pixel_put(&img, 180, 150 + j, 0x00FF0000);
-		my_mlx_pixel_put(&img, 150 + j, 180, 0x00FF0000);
-	}
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
 }
 
 int			main(void)
 {
 	t_vars	vars;
-	t_data	img;
-	static int i;
-	int j;
 
-	i = 30;
-	j = 0;
+	g_py = 450;
+	g_px = 450;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "Hello world!");
-	mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	mlx_key_hook(vars.win, key_hook, &vars);
-	img.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	my_mlx_pixel_put(&img, 150, 150, 0x00FF0000);
-	cube_put(i, j, img);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_hook(vars.win, 17, 1L << 2, clean_close, &vars);
+	// mlx_loop_hook(vars.mlx, set_hook, &vars);
 	mlx_loop(vars.mlx);
 }

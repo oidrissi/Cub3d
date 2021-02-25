@@ -6,7 +6,7 @@
 #    By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/17 02:25:49 by oidrissi          #+#    #+#              #
-#    Updated: 2021/02/21 17:43:25 by oidrissi         ###   ########.fr        #
+#    Updated: 2021/02/24 16:34:51 by oidrissi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ CC				= gcc
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -I ./mlx/mlxx 
 LIBS			= -L ./mlx -lmlx -framework OpenGL -framework AppKit
-MLX				= libmlx.dylib
 
 NAME			= cub3D
 
