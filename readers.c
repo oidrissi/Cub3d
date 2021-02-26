@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:13:28 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/02/26 18:41:56 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:48:48 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_file_data	init_map_data()
 
 
 
-void	parse_init()
+void	parse_init(char *line)
 {
 	if (line[0] != g_file)
 	{
@@ -72,10 +72,16 @@ void	read_file(int fd, char *filename)
 	t_file_data map_data;
 	char	*line;
 	int		ret;
+	
 	fd = open("world.cub", O_RDONLY);
+	ret = get_next_line(fd, &line);
 	// if file descriptor has no lines return 
-	if ((ret = get_next_line(fd, &line)) == -1)
-		return ("File Cannot be Read");
+	if (ret == -1)
+		ft_printf("File Cannot be Read");
+	else if (ret == 0)
+		ft_printf("Nothing to show");
+	else
+		parse_init(line);
 	// if (line[i] != 
 }
 
