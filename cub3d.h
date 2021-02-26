@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:46:15 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/02/25 09:32:02 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:19:38 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <unistd.h>
 # include "mlx.h"
+# include "get_next_line/get_next_line.h"
 # define WIDTH	1920
 # define HEIGHT	1024
 
@@ -40,6 +41,17 @@ typedef struct	s_vars {
 	void		*win;
 }				t_vars;
 
+typedef struct	s_file_data {
+	int			*r; // resolution
+	int			*f; // floor
+	int			*c; // sky
+	char		*w;  // west
+	char		*ea;  // east
+	char		*n;  // north
+	char		*so; // south
+}				t_file_data;
+
+t_data	*g_file;
 t_data	g_img;
 
 int				main(void);
