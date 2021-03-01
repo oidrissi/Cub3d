@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:13:28 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/03/01 17:30:28 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:09:57 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_file_data	init_map_data()
 	g_file->r = 0;
 	g_file->f = 0;
 	g_file->c = 0;
-	g_file->w = NULL;
+	g_file->we = NULL;
 	g_file->ea = NULL;
-	g_file->n = NULL;
+	g_file->no = NULL;
 	g_file->so = NULL;
 	return (*g_file);
 }
@@ -106,7 +106,7 @@ void	parse_file(char *file)
 	parse_map(file);
 }
 
-void	ft_color_resolution(char **str, t_g_file *g_file)
+void	ft_color_resolution(char **str)
 {
 	int			i;
 
@@ -183,8 +183,8 @@ void	ft_map(char *str)
 	i = 0;
 	if (ft_is_map(str) == 1)
 	{
-		if (g_file->f == -1 || g_file->c == -1 || g_file->n == NULL ||
-				g_file->so == NULL || g_file->w == NULL ||
+		if (g_file->f == -1 || g_file->c == -1 || g_file->no == NULL ||
+				g_file->so == NULL || g_file->we == NULL ||
 				g_file->ea == NULL || g_file->sp == NULL)
 			g_file->erreur = 2;
 		if ((i = ft_strlen(str)) > ssizeline)
@@ -254,6 +254,16 @@ int		ft_check_save(char *saved)
 	if (saved != "--save")
 		return (0);
 	return (1);
+}
+
+
+ /* Function to save image to file without loading the game to the screen but secretly opening it in the background */
+ 
+int		screenshot()
+{
+	if (g_file->save == 1)
+		return (0);
+	
 }
 
 int		main(int argc, char *argv[])

@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:46:15 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/03/01 17:32:32 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:05:56 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct	s_file_data {
 	char		*ea;  // east //
 	char		*no;  // north //
 	char		*so; // south //
+	char		*sp;
+	int			rx;
+	int			ry;
 	int			save;
 	int			erreur;
 	int			nblines;
