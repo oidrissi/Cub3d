@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:46:15 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/02/26 18:19:38 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/01 17:32:32 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,25 @@ typedef struct	s_vars {
 }				t_vars;
 
 typedef struct	s_file_data {
-	int			*r; // resolution
-	int			*f; // floor
-	int			*c; // sky
-	char		*w;  // west
-	char		*ea;  // east
-	char		*n;  // north
-	char		*so; // south
+	int			*r; // resolution //
+	int			*f; // floor //
+	int			*c; // sky //
+	char		*we;  // west //
+	char		*ea;  // east //
+	char		*no;  // north //
+	char		*so; // south //
+	int			save;
+	int			erreur;
+	int			nblines;
+	int			sizeline;
+	int			map;
+	int			count;
+	int			insidemap;
+	int			wrongcharmap;
+	int			emptyline;
 }				t_file_data;
 
-t_data	*g_file;
+t_file_data	*g_file;
 t_data	g_img;
 
 int				main(void);
