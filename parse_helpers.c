@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:51:33 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/03/03 19:21:08 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/03 19:31:32 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ int		ft_nb_virgule(char *str)
 	int		i;
 	int		size;
 	int 	checked;
-	
+
 	checked = 0;
-	i = 0;
-	if ((size = ft_strlen(str)) == 0)
-		return (0);
-	while (i++ <= size)
+	i = -1;
+	size = ft_strlen(str);
+	while (++i <= size)
 	{
 		if (str[i] == ',')
 			checked++;
@@ -58,20 +57,20 @@ int		ft_nb_virgule(char *str)
 
 void	ft_atoi_check_color(char *str)
 {
-    int     i;
-    int		comma_check;
-    
-    i = 0;
+	int		i;
+	int		comma_check;
+
+	i = 0;
 	comma_check = 0;
-    while (str[i] != ',')
-        i++;
-    if (str[i] == ',')
+	while (str[i] != ',')
+		i++;
+	if (str[i] == ',')
 		comma_check = 1;
 	while (str[i] == ' ')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
-    while ((str[i] < '0' && str[i] > '9') && str[i])
+	while ((str[i] < '0' && str[i] > '9') && str[i])
 	{
 		if (str[i] == ',')
 			comma_check++;
@@ -86,7 +85,7 @@ void	ft_atoi_check_color(char *str)
 int		ft_atoi_color(char *str)
 {
 	int		i;
-	
+
 	i = 0;
 	if (str[1] != ' ')
 		g_file->erreur = 2;
@@ -107,7 +106,7 @@ int		ft_atoi_color(char *str)
 			g_file->i++;
 		}
 		if (str > 255 || str < 0)
-		g_file->erreur = 2;
+			g_file->erreur = 2;
 	}
 	return (g_file->sum);
 }
@@ -118,15 +117,15 @@ void	ft_texture(char *str)
 
 	i = 0;
 	if (str[i] == 'N' && str[i + 1] == 'O')
-		ft_set_path_texture(g_file->no);
+		ft_set_path_texture();
 	else if (str[i] == 'S' && str[i + 1] == 'O')
-		ft_set_path_texture(g_file->so);
+		ft_set_path_texture();
 	else if (str[i] == 'W' && str[i + 1] == 'E')
-		ft_set_path_texture(g_file->we);
+		ft_set_path_texture();
 	else if (str[i] == 'E' && str[i + 1] == 'A')
-		ft_set_path_texture(g_file->ea);
+		ft_set_path_texture();
 	else if (str[i] == 'S' && str[i + 1] != 'O')
-		ft_set_path_texture(g_file->sp);
+		ft_set_path_texture();
 }
 
 void	ft_color_resolution(char **str)
