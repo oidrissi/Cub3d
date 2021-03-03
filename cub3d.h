@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 18:46:15 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/03/01 19:05:56 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:39:58 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <limits.h>
 # include "mlx.h"
 # include "get_next_line/get_next_line.h"
 # define WIDTH	1920
@@ -42,16 +43,17 @@ typedef struct	s_vars {
 }				t_vars;
 
 typedef struct	s_file_data {
-	int			*r; // resolution //
-	int			*f; // floor //
-	int			*c; // sky //
+	int			*r; /* resolution */
+	int			*f; /** floor **/
+	int			*c; // ceiling //
 	char		*we;  // west //
 	char		*ea;  // east //
 	char		*no;  // north //
 	char		*so; // south //
-	char		*sp;
-	int			rx;
-	int			ry;
+	char		*sp; // Sprite//
+	int			rx; // Resolution Width
+	int			ry; // Resolution Height
+	int			i;
 	int			save;
 	int			erreur;
 	int			nblines;
@@ -61,6 +63,8 @@ typedef struct	s_file_data {
 	int			insidemap;
 	int			wrongcharmap;
 	int			emptyline;
+	int			index;
+	int			sum;
 }				t_file_data;
 
 t_file_data	*g_file;

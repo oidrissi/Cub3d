@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:13:28 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/03/01 19:09:57 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:42:15 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,20 @@ t_file_data	init_map_data()
 	g_file->ea = NULL;
 	g_file->no = NULL;
 	g_file->so = NULL;
+	g_file->sp = NULL;
+	g_file->ry = 0;
+	g_file->i = 0;
+	g_file->erreur = 0;
+	g_file->nblines = 0;
+	g_file->sizeline = 0;
+	g_file->count = 0;
+	g_file->index = 0;
+	g_file->sum = 0;
+	g_file->insidemap = 0;
+	g_file->wrongcharmap = 0;
+	g_file->emptyline = 0;
+	
 	return (*g_file);
-}
-
-void	parse_init(char *line)
-{
-	if (line[0] != g_file)
-	{
-		ft_printf("Error in the .cub file");
-		exit(0);
-	}
-	else
-	{
-		if (g_file->r != 0)
-			ft_set_right_res(g_file->r);
-		if (g_file->f != 0 || g_file->c != 0)
-			ft_set_color(g_file->f, g_file->c);
-		if (g_file->w != NULL)
-			ft_set_w_text(g_file->w);
-		if (g_file->ea != NULL)
-			ft_set_ea_text(g_file->ea);
-		if (g_file->n != NULL)
-			ft_set_n_text(g_file->n);
-		if (g_file->so != NULL)
-			ft_set_so_text(g_file->so);
-	}
 }
 
 int		parse_map(char *file)
@@ -68,7 +57,7 @@ int		parse_map(char *file)
 		if ((g_file->insidemap = ft_is_map(str)) == 1)
 		{
 			g_file->count++;
-			ft_copy_map(str, g_file);
+			ft_copy_map(str);
 		}
 		free(str);
 	}
@@ -106,6 +95,61 @@ void	parse_file(char *file)
 	parse_map(file);
 }
 
+int		ft_atoi_resolution(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (str[1] != ' ' || ft_charinstr((char *)str, ',') == 1)
+		g_file->erreur = 2;
+	while (str[g_file->i] == ',' && (str[g_file->i] == '\n' ||
+			str[g_file->i] == '\r' || str[g_file->i] == ' ' ||
+			str[g_file->i] == '\t' || str[g_file->i] == '\v' ||
+			str[g_file->i] == '\f'))
+		g_file->i++;
+	if (str[g_file->i] == '-' || str[g_file->i] == '+')
+		g_file->erreur = 2;
+	while (str[g_file->i] >= '0' && str[g_file->i] <= '9')
+	{
+		if (i > 21474836)
+			break;
+		i = i * 10 + (str[g_file->i] - 48);
+		g_file->i++;
+	}
+	while (str[g_file->i] >= '0' && str[g_file->i] <= '9')
+		g_file->i++;
+	return (i);
+}
+
+int		ft_atoi_color(char *str)
+{
+	int		i;
+	
+	i = 0;
+	if (str[1] != ' ')
+		g_file->erreur = 2;
+	ft_atoi_check_color();
+	while (str[g_file->i] =                                                                                                  = ',' && (str[g_file->i] == '\n' ||
+			str[g_file->i] == '\r' || str[g_file->i] == ' ' ||
+			str[g_file->i] == '\t' || str[g_file->i] == '\v' ||
+			str[g_file->i] == '\f')
+	{
+		g_file->i++;
+		i = 0;
+		if (str[g_file->i] >= '0' && str[g_file->i] <= '9')
+			g_file->index++;
+		while (str[g_file->i] >= '0' && str[g_file->i] <= '9')
+		{
+			i = i * 10 + (str[g_file->i] - 48);
+			g_file->sum = (g_file->sum * 10) + (str[g_file->i] - 48);
+			g_file->i++;
+		}
+		if (str > 255 || str < 0)
+		g_file->erreur = 2;
+	}
+	return (g_file->sum);
+}
+
 void	ft_color_resolution(char **str)
 {
 	int			i;
@@ -123,22 +167,24 @@ void	ft_color_resolution(char **str)
 	{
 		if (g_file->rx != 0 && g_file->ry != 0)
 			g_file->erreur = 2;
-		g_file->rx = ft_atoi2(*str, g_file);
-		g_file->ry = ft_atoi2(*str, g_file);
+		g_file->rx = ft_atoi_resolution(*str);
+		g_file->ry = ft_atoi_resolution(*str);
 		if (ft_atoi2(*str, g_file) > 0 || g_file->rx == 0 || g_file->ry == 0)
 			g_file->erreur = 2;
 	}
 	else if (*str[i] == 'F')
-		g_file->f = ft_atoi3(*str, g_file);
+		g_file->f = ft_atoi_color(*str);
 	else if (*str[i] == 'C')
-		g_file->c = ft_atoi3(*str, g_file);
+		g_file->c = ft_atoi_color(*str);
 }
 
 int		ft_charinstr(char *str, char s)
 {
 	int i;
-	
+
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == s)
@@ -177,8 +223,8 @@ int		ft_is_map(char *str)
 void	ft_map(char *str)
 {
 	int			i;
-	static int	snblines = 0;
-	static int	ssizeline = 0;
+	static int	stringnblines = 0;
+	static int	stringsizeline = 0;
 
 	i = 0;
 	if (ft_is_map(str) == 1)
@@ -187,54 +233,18 @@ void	ft_map(char *str)
 				g_file->so == NULL || g_file->we == NULL ||
 				g_file->ea == NULL || g_file->sp == NULL)
 			g_file->erreur = 2;
-		if ((i = ft_strlen(str)) > ssizeline)
-			ssizeline = i;
-		snblines = snblines + 1;
+		if ((i = ft_strlen(str)) > stringsizeline)
+			stringsizeline = i;
+		stringnblines = stringnblines + 1;
 	}
-	g_file->nblines = snblines;
-	g_file->sizeline = ssizeline;
-}
-
-void	read_file(int fd, char *filename)
-{
-	/**
-	** STORE RESOLUTION OF WINDOW THEN
-	** STORE MAP->DETAILS: R: Resolution, F: Floor Color, S: Sky Color,
-	** 					  Textures: W: West, E: East, N: North, SO: South
-	**
-	** OPENS .cub file starts reading line by line then compares
-	** each line with get_next_line::
-	** if (line[0] = MAP->DETAILS [array of char: R F S W, E, N, SO])
-	**	treat_specific_detail;
-	** else
-	** If First line different than MAP->DETAILS
-	** Return Error Message with STDERROR
-	** ELSE
-	**
-	**
-	**
-	**/
-
-	t_file_data map_data;
-	char	*line;
-	int		ret;
-	
-	fd = open("world.cub", O_RDONLY);
-	ret = get_next_line(fd, &line);
-	// if file descriptor has no lines return 
-	if (ret == -1)
-		ft_printf("File Cannot be Read");
-	else if (ret == 0)
-		ft_printf("Nothing to show");
-	else
-		parse_init(line);
-	// if (line[i] != 
+	g_file->nblines = stringnblines;
+	g_file->sizeline = stringsizeline;
 }
 
 int		check_format_file(char *str)
 {
 	int		i;
-	
+
 	while(str[i])
 		i++;
 	while (str[i] != '.')
@@ -256,9 +266,6 @@ int		ft_check_save(char *saved)
 	return (1);
 }
 
-
- /* Function to save image to file without loading the game to the screen but secretly opening it in the background */
- 
 int		screenshot()
 {
 	if (g_file->save == 1)
