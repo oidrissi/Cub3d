@@ -6,7 +6,7 @@
 /*   By: oidrissi <oidrissi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:13:28 by oidrissi          #+#    #+#             */
-/*   Updated: 2021/03/03 17:55:08 by oidrissi         ###   ########.fr       */
+/*   Updated: 2021/03/03 18:17:00 by oidrissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		check_format_file(char *str)
 {
 	int		i;
 
-	while(str[i])
+	while (str[i])
 		i++;
 	while (str[i] != '.')
 	{
